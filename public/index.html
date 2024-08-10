@@ -6,6 +6,46 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>acceso denegado</h1>
+    <h1>Google Sing-in</h1>
+    <hr>
+    <div id="g_id_onload"
+        data-client_id="29476549633-o97uo4v6q6s2e892smqb08jomc2b5k42.apps.googleusercontent.com"
+        data-auto_prompt="false"
+        data-callback="handleCredentialResponse">
+    </div>
+    <div class="g_id_signin"
+        data-type="standard"
+        data-size="large"
+        data-theme="outline"
+        data-text="sign_in_with"
+        data-shape="rectangular"
+        data-logo_alignment="left">
+    </div>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+
+    <script>
+        function handleCredentialResponse(response) {
+           // decodeJwtResponse() is a custom function defined by you
+           // to decode the credential response.
+        //    const responsePayload = decodeJwtResponse(response.credential);
+        //   Google token
+            const body={id_token:response.credential}
+            fetch('http://localhost:8080/api/auth/google',{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json'
+                },
+                body: JSON.stringify(body)
+            })
+                .then(resp=>resp.json() )
+                .then(resp=>{
+                    console.log(resp)
+                })
+                .catch(console.warn)
+
+    }
+      </script>
+
+
 </body>
 </html>
