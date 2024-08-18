@@ -53,7 +53,7 @@ const userPut=async(req, res=response) => {
 
 
     if(password){
-        const salt =bcryptjs.genSaltSync()
+        const salt =bcryptjs.genSaltSync() 
         rest.password=bcryptjs.hashSync(password,salt);
     }
 

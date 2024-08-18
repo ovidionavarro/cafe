@@ -2,7 +2,7 @@ const{Schema,model} =require('mongoose')
 
 
 
-const CategoriaSchema= Schema({
+const ProductoSchema= Schema({
     nombre:{
         type:String,
         required:[true,'el nombre es obligatorio'],
@@ -19,13 +19,30 @@ const CategoriaSchema= Schema({
         require:true
         
     },
+    precio:{
+        type:Number,
+        default:0
+    },
+    categoria:{
+        type:Schema.Types.ObjectId,
+        ref:'Categoria',
+        require:true
+    },
+    descripcion:{
+        type:String
+    },
+    disponible:{
+        type:Boolean,
+        default:true
+    }
     
 
 })
-CategoriaSchema.methods.toJSON=function(){
+ProductoSchema.methods.toJSON=function(){
     const{_v,estado,...rest}=this.toObject();
     return rest
 }
 
+
  
-module.exports=model('Categoria',CategoriaSchema);
+module.exports=model('Producto',ProductoSchema);
