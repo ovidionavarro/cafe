@@ -3,19 +3,11 @@ const Producto = require("../models/producto");
 
 const crearProducto=async(req,res=response)=>{
     
-    const {nombre,categoria,estado,precio,descripcion,disponible}=req.body
+    const {usuario,estado,...data}=req.body
     
  
     //crear la data
-    data={
-        nombre,
-        categoria,
-        estado,
-        precio,
-        descripcion,
-        disponible,
-        usuario:req.user._id
-    }
+    data.usuario=req.user._id
     //guardar db
     const producto= new Producto(data)
     await producto.save()

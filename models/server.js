@@ -12,7 +12,8 @@ class Server{
             auth:'/api/auth',
             categories:'/api/categories',
             user:'/user/api',
-            producto:'/api/producto'
+            producto:'/api/producto',
+            busqueda:'/api/buscar'
         }
         this.authPath='/api/auth'
         this.categories='/api/categories'
@@ -41,6 +42,7 @@ class Server{
         this.app.use( this.paths.auth,require('../routes/auth'))
         this.app.use(this.paths.categories,require('../routes/categories'))
         this.app.use(this.paths.producto,require('../routes/producto'))
+        this.app.use(this.paths.busqueda,require('../routes/busqueda'))
     }
     listen(){
         this.app.listen(this.port, 
