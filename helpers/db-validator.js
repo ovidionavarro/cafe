@@ -37,10 +37,20 @@ const existProdutc=async(id='')=>{
         throw new Error(`no existe producto con id ${id}`)
     }  
 }
+
+const coleccionesPermitidas=(coleccion='',colecciones=[])=>{
+    if(!colecciones.includes(coleccion)){
+        throw new Error(`la colecccion ${coleccion} no es permitida, ${colecciones}`)
+    }
+    return true
+}
+
+
 module.exports={
     es_rol_valido,
     exist_Email,
     exsit_User,
     exist_Cat,
-    existProdutc
+    existProdutc,
+    coleccionesPermitidas
 }

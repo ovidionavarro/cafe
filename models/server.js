@@ -1,4 +1,5 @@
 require ('dotenv').config();
+const fileUpload=require('express-fileupload')
 const express=require('express');
 const dbConnection = require('../database/mongoConfig');
 
@@ -13,7 +14,8 @@ class Server{
             categories:'/api/categories',
             user:'/user/api',
             producto:'/api/producto',
-            busqueda:'/api/buscar'
+            busqueda:'/api/buscar',
+            uploads:'/api/uploads'
         }
         this.authPath='/api/auth'
         this.categories='/api/categories'
@@ -35,6 +37,11 @@ class Server{
         //directorio publico
         this.app.use(express.json())
         this.app.use(express.static('public'))
+        this.app.use(fileUpload({
+            useTempFiles : true,
+            tempFileDir : '/tmp/',
+            createParentPath:true
+        }));
     }
 
     routes(){
@@ -43,6 +50,8 @@ class Server{
         this.app.use(this.paths.categories,require('../routes/categories'))
         this.app.use(this.paths.producto,require('../routes/producto'))
         this.app.use(this.paths.busqueda,require('../routes/busqueda'))
+        this.app.use(this.paths.uploads,require('../routes/uploads'))
+        
     }
     listen(){
         this.app.listen(this.port, 
